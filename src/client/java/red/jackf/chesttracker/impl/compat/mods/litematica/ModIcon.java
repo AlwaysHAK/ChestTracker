@@ -2,6 +2,7 @@ package red.jackf.chesttracker.impl.compat.mods.litematica;
 
 import fi.dy.masa.malilib.gui.interfaces.IGuiIcon;
 import fi.dy.masa.malilib.render.RenderUtils;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import red.jackf.chesttracker.impl.ChestTracker;
 
@@ -29,8 +30,9 @@ public enum ModIcon implements IGuiIcon {
     }
 
     @Override
-    public void renderAt(int x, int y, float z, boolean enabled, boolean selected) {
+    public void renderAt(int x, int y, float z, boolean enabled, boolean selected, GuiGraphics guiGraphics) {
         RenderUtils.drawTexturedRect(x, y, getU(), getV(), getWidth(), getHeight(), z);
+        RenderUtils.forceDraw(guiGraphics);
     }
 
     @Override
