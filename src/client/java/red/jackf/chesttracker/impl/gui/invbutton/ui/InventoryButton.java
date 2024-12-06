@@ -182,6 +182,15 @@ public class InventoryButton extends AbstractWidget {
     }
 
     @Override
+    public boolean isMouseOver(double mouseX, double mouseY) {
+        return this.isMouseOver(mouseX, mouseY, true);
+    }
+
+    public boolean isMouseOver(double mouseX, double mouseY, boolean countSecondary) {
+        return super.isMouseOver(mouseX, mouseY) || countSecondary && this.secondaryButtons.stream().anyMatch(b -> b.isMouseOver(mouseX, mouseY));
+    }
+
+    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.isMouseOver(mouseX, mouseY)) {
             this.canDrag = true;
@@ -220,7 +229,7 @@ public class InventoryButton extends AbstractWidget {
             ButtonPositionMap.saveUserPosition(this.parent, this.position);
             this.setTooltip(Tooltip.create(Component.translatable("chesttracker.title")));
             return true;
-        } else if (this.isMouseOver(mouseX, mouseY)) {
+        } else if (this.isMouseOver(mouseX, mouseY, false)) {
             ChestTracker.openInGame(Minecraft.getInstance(), this.parent);
             return true;
         } else {
